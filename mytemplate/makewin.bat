@@ -7,8 +7,12 @@ cd /d "%~dp0"
 title CQUThesis自动化编译程序
 
 set flag=%1
+set file=%2
 if %flag%x == x (
   set flag=thesis
+)
+if %file%x == x (
+  set file=template.tex
 )
 
 if %flag%x == thesisx (
@@ -69,7 +73,7 @@ goto :EOF
   call:checkfiles
   echo 请确认您的系统已正确配置latexmk...
   echo 使用latexmk智能编译论文中...
-  latexmk -xelatex main.tex
+  latexmk -xelatex %file%
   echo *                                       *
   echo *********太棒了！论文编译完成！**********
   echo *                                       *
@@ -78,11 +82,11 @@ goto :EOF
 :thesisx
   call:checkfiles
   echo 论文编译中......
-  xelatex main.tex
-  bibtex main.tex
-  xelatex main.tex
-  xelatex main.tex
-  xelatex main.tex
+  xelatex %file%
+  bibtex %file%
+  xelatex %file%
+  xelatex %file%
+  xelatex %file%
   echo *                                                    *
   echo ***************太棒了！论文编译完成！*****************
   echo 提示：本方案速度较慢，推荐使用makewin thesis进行编译。
