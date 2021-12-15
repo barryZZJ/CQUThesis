@@ -19,11 +19,6 @@ if %flag%x == thesisxx (
   call:thesisx
   goto :EOF
 )
-if %flag%x == docx (
-  call:extract
-  call:document
-  goto :EOF
-)
 if %flag%x == cleanx (
   call:cleanaux
   goto :EOF
@@ -41,22 +36,6 @@ if %flag%x == extractx (
   call:extract
   goto :EOF
 )
-if %flag%x == allx (
-  call:thesis
-  call:document
-  goto :EOF
-)
-if %flag%x == buildx (
-  call:extract
-  call:thesis
-  goto :EOF
-)
-if %flag%x == buildxx (
-  call:extract
-  call:thesis
-  call:document
-  goto :EOF
-)
 
 :help
   echo *************************************************************
@@ -72,14 +51,10 @@ if %flag%x == buildxx (
   echo   help      展示本帮助信息
   echo   thesis    通过latexmk智能，快速地编译论文（双击或无参数时默认运行）
   echo   thesisx   进行一次完整的论文编译（如果你的系统上没安装latexmk就用这一项，否则推荐用上面的）
-  echo   doc       编译CQUThesis用户文档
   echo   clean     清理所有.aux文件
   echo   cleanpdf  清理所有.pdf文件
   echo   cleanall  清理所有.aux文件以及.pdf文件
-  echo   extract   从.dtx文件中提取模板
-  echo   all       thesis + doc
-  echo   build     extract + thesis
-  echo   buildx    extract + thesis + doc
+  echo   extract   从.dtx+.ins文件中提取配置文件
   echo *
   echo ***********************Happy TeXing**************************
   echo ************************写作愉快！***************************
@@ -141,20 +116,6 @@ goto :EOF
   latex cquthesis.ins
   echo *                             *
   echo *******模板文件提取完成********
-  echo *                             *
-goto :EOF
-
-:document
-  echo 编译CQUThesis用户文档中...
-  set cmode=-interaction=batchmode
-  xelatex cquthesis.dtx
-  makeindex -s gind.ist -o cquthesis.ind cquthesis.idx
-  makeindex -s gglo.ist -o cquthesis.gls cquthesis.glo
-  xelatex cquthesis.dtx
-  xelatex cquthesis.dtx
-  xelatex cquthesis.dtx
-  echo *                             *
-  echo *******用户文档编译完成********
   echo *                             *
 goto :EOF
 
