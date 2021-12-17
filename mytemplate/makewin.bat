@@ -36,10 +36,6 @@ if %flag%x == cleanallx (
   call:cleanpdf
   goto :EOF
 )
-if %flag%x == extractx (
-  call:extract
-  goto :EOF
-)
 
 :help
   echo *************************************************************
@@ -58,19 +54,13 @@ if %flag%x == extractx (
   echo   clean     清理所有.aux文件
   echo   cleanpdf  清理所有.pdf文件
   echo   cleanall  清理所有.aux文件以及.pdf文件
-  echo   extract   从.dtx+.ins文件中提取配置文件
   echo *
   echo ***********************Happy TeXing**************************
   echo ************************写作愉快！***************************
 goto :EOF
 
-:checkfiles
-  IF NOT EXIST cquthesis.cls call:extract
-  IF NOT EXIST cquthesis.cfg call:extract
-goto :EOF
 
 :thesis
-  call:checkfiles
   echo 请确认您的系统已正确配置latexmk...
   echo 使用latexmk智能编译论文中...
   latexmk -xelatex %file%
@@ -80,7 +70,6 @@ goto :EOF
   goto pauseIfDoubleClicked
 
 :thesisx
-  call:checkfiles
   echo 论文编译中......
   xelatex %file%
   bibtex %file%
@@ -113,14 +102,6 @@ goto :EOF
 :clean_all
   call:cleanaux
   call:cleanpdf
-goto :EOF
-
-:extract
-  echo 正在提取CQUThesis模板文件...
-  latex cquthesis.ins
-  echo *                             *
-  echo *******模板文件提取完成********
-  echo *                             *
 goto :EOF
 
 :pauseIfDoubleClicked
