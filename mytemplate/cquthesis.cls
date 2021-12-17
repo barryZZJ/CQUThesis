@@ -424,8 +424,8 @@ language=Python}
 \setcounter{cquXuHaoType}{1}
 \newcommand{\xuhaoseparator}{}
 \newcommand{\xuhaotype}[1][1]{
-\ifnum #1>6 \ClassError{cquthesis}%
-{Available choices from 1-6.}{}%
+\ifnum #1>7 \ClassError{cquthesis}%
+{Available choices from 1-7.}{}%
 \fi
 \setcounter{cquXuHaoType}{#1}
 }%\xuhaotype
@@ -440,6 +440,7 @@ language=Python}
 {Xuhao(rownum) of type-6 must be under 10.}{}%
 \else\fnsymbol{cquXuHao}
 \fi %6
+\or \arabic{cquXuHao}. %7
 \fi
 }%\output@xuhao
 \newcommand{\xuhao}[1][0]{
